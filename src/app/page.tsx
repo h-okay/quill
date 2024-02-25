@@ -129,7 +129,7 @@ export default function Home() {
               </span>
               <span className="mt-2 text-zinc-700">
                 It&apos;s that simple. Try out Quill today - it really takes
-                less than a minute. with.
+                less than a minute.
               </span>
             </div>
           </li>
