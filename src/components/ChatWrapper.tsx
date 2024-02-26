@@ -1,3 +1,3 @@
 export default function ChatWrapper() {
-  return <div>ChatWrapper</div>;
+    return <div>ChatWrapper</div>;
 }
