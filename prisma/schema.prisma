@@ -14,12 +14,39 @@ datasource db {
   relationMode = "prisma" // Must be used with Planetscale
 }
 
+enum UploadStatus {
+  PENDING
+  PROCESSING
+  FAILED
+  SUCCESS
+}
+
 model User {
   id    String @id @unique // kinde provides
   email String @unique
+
+  File File[]
 
   stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
   stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
   stripePriceId          String?   @map(name: "stripe_price_id")
   stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+}
+
+model File {
+  id   String @id @default(cuid())
+  name String
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  uploadStatus UploadStatus @default(PENDING)
+
+  url String
+  key String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([userId])
 }
