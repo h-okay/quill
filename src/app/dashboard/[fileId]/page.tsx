@@ -1,5 +1,5 @@
-import ChatWrapper from '@/components/ChatWrapper';
 import PdfRenderer from '@/components/PdfRenderer';
+import ChatWrapper from '@/components/chat/ChatWrapper';
 import { db } from '@/db';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { notFound, redirect } from 'next/navigation';
@@ -41,7 +41,7 @@ export default async function FileId({ params }: FileIdProps) {
 
                 {/* right side */}
                 <div className="flex-[0.75] shrink-0 border-t border-gray-200 lg:w-96 lg:border-l lg:border-t-0">
-                    <ChatWrapper />
+                    <ChatWrapper fileId={fileId} />
                 </div>
             </div>
         </div>

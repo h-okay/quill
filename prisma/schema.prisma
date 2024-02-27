@@ -25,7 +25,8 @@ model User {
   id    String @id @unique // kinde provides
   email String @unique
 
-  File File[]
+  File    File[]
+  Message Message[]
 
   stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
   stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
@@ -42,11 +43,31 @@ model File {
 
   uploadStatus UploadStatus @default(PENDING)
 
-  url String
-  key String
+  url      String
+  key      String
+  messages Message[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   @@index([userId])
+}
+
+model Message {
+  id   String @id @default(cuid())
+  text String @db.Text()
+
+  isUserMessage Boolean
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  File   File?   @relation(fields: [fileId], references: [id])
+  fileId String?
+
+  @@index([userId])
+  @@index([fileId])
 }
