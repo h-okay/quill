@@ -11,78 +11,64 @@ const f = createUploadthing();
 const auth = (req: Request) => ({ id: 'fakeId' });
 
 export const ourFileRouter = {
-    pdfUploader: f({ pdf: { maxFileSize: '4MB' } })
-        .middleware(async ({ req }) => {
-            const { getUser } = getKindeServerSession();
-            const user = await getUser();
-            if (!user || !user.id) throw new Error('Unauthorized');
-            return { userId: user.id };
-        })
-        .onUploadComplete(async ({ metadata, file }) => {
-            const createdFile = await db.file.create({
-                data: {
-                    key: file.key,
-                    name: file.name,
-                    userId: metadata.userId,
-                    url: file.url, // or `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${file.key}` if it fails
-                    uploadStatus: 'PROCESSING',
-                },
-            });
+  pdfUploader: f({ pdf: { maxFileSize: '4MB' } })
+    .middleware(async ({ req }) => {
+      const { getUser } = getKindeServerSession();
+      const user = await getUser();
+      if (!user || !user.id) throw new Error('Unauthorized');
+      return { userId: user.id };
+    })
+    .onUploadComplete(async ({ metadata, file }) => {
+      const createdFile = await db.file.create({
+        data: {
+          key: file.key,
+          name: file.name,
+          userId: metadata.userId,
+          url: file.url, // or `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${file.key}` if it fails
+          uploadStatus: 'PROCESSING',
+        },
+      });
 
-            try {
-                console.log('starting');
-                const response = await fetch(file.url);
-                const blob = await response.blob();
-                const loader = new PDFLoader(blob);
-                const pageLevelDocs = await loader.load();
+      try {
+        // TODO: make sure the integration works after getting API keys
+        const response = await fetch(file.url);
+        const blob = await response.blob();
+        const loader = new PDFLoader(blob);
+        const pageLevelDocs = await loader.load();
 
-                // vectorize and index the entire document
-                console.log('get index');
-                const pineconeIndex = pinecone.index('quill');
-                console.log('get embeds');
-                const embeddings = new OpenAIEmbeddings({
-                    openAIApiKey: process.env.OPENAI_API_KEY,
-                });
+        // vectorize and index the entire document
+        const pineconeIndex = pinecone.index('quill');
+        const embeddings = new OpenAIEmbeddings({
+          openAIApiKey: process.env.OPENAI_API_KEY,
+        });
 
-                // vectorize and tag the file with its id (namespace)
-                console.log('get store.fromDocs');
-                try {
-                    // TODO: Remove try-catch
-                    await PineconeStore.fromDocuments(
-                        pageLevelDocs,
-                        embeddings,
-                        {
-                            pineconeIndex,
-                            namespace: createdFile.id,
-                        },
-                    );
-                } catch (err) {
-                    console.log(err);
-                }
+        // vectorize and tag the file with its id (namespace)
+        await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
+          pineconeIndex,
+          namespace: createdFile.id,
+        });
 
-                // change file status
-                console.log('db success');
-                await db.file.update({
-                    data: {
-                        uploadStatus: 'SUCCESS',
-                    },
-                    where: {
-                        id: createdFile.id,
-                    },
-                });
-            } catch (err) {
-                // something went wrong during upload
-                console.log('db failed');
-                await db.file.update({
-                    data: {
-                        uploadStatus: 'FAILED',
-                    },
-                    where: {
-                        id: createdFile.id,
-                    },
-                });
-            }
-        }),
+        // change file status
+        await db.file.update({
+          data: {
+            uploadStatus: 'SUCCESS',
+          },
+          where: {
+            id: createdFile.id,
+          },
+        });
+      } catch (err) {
+        // something went wrong during upload
+        await db.file.update({
+          data: {
+            uploadStatus: 'FAILED',
+          },
+          where: {
+            id: createdFile.id,
+          },
+        });
+      }
+    }),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;

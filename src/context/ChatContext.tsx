@@ -1,68 +1,145 @@
 'use client';
 
+import { trpc } from '@/app/_trpc/client';
 import { useToast } from '@/components/ui/use-toast';
+import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query';
 import { useMutation } from '@tanstack/react-query';
-import { ReactNode, createContext, useState } from 'react';
+import { Chat } from 'openai/resources/index.mjs';
+import { ReactNode, createContext, useContext, useRef, useState } from 'react';
 
 type StreamResponse = {
-    addMessage: () => void;
-    message: string;
-    handleInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-    isLoading: boolean;
+  addMessage: () => void;
+  message: string;
+  handleInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  isLoading: boolean;
 };
 
 const ChatContext = createContext<StreamResponse>({
-    addMessage: () => {},
-    message: '',
-    handleInputChange: () => {},
-    isLoading: false,
+  addMessage: () => {},
+  message: '',
+  handleInputChange: () => {},
+  isLoading: false,
 });
 
 type ChatContextProviderType = {
-    fileId: string;
-    children: ReactNode;
+  fileId: string;
+  children: ReactNode;
 };
 
 export function ChatContextProvider({
-    fileId,
-    children,
+  fileId,
+  children,
 }: ChatContextProviderType) {
-    const [message, setMessage] = useState<string>('');
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const { toast } = useToast();
-    const { mutate: sendMessage } = useMutation({
-        mutationFn: async ({ message }: { message: string }) => {
-            const response = await fetch('/api/message', {
-                method: 'POST',
-                body: JSON.stringify({ fileId, message }),
-            });
+  const [message, setMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const utils = trpc.useUtils();
+  const { toast } = useToast();
+  const backupMessageRef = useRef('');
 
-            if (!response.ok) {
-                throw new Error('Failed to send message');
-            }
+  const { mutate: sendMessage } = useMutation({
+    mutationFn: async ({ message }: { message: string }) => {
+      const response = await fetch('/api/message', {
+        method: 'POST',
+        body: JSON.stringify({ fileId, message }),
+      });
 
-            return response.body;
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      return response.body;
+    },
+    onMutate: async ({ message }) => {
+      backupMessageRef.current = message;
+      setMessage('');
+
+      // optimistic updates for immediate user feedback
+      await utils.getFileMessages.cancel();
+      const previousMessages = utils.getFileMessages.getInfiniteData();
+      utils.getFileMessages.setInfiniteData(
+        {
+          fileId,
+          limit: INFINITE_QUERY_LIMIT,
         },
-    });
+        (old) => {
+          if (!old) {
+            return {
+              pages: [],
+              pageParams: [],
+            };
+          }
 
-    function handleInputChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-        setMessage(e.target.value);
-    }
+          let newPages = [...old.pages];
+          let latestPage = newPages[0]!;
+          latestPage.messages = [
+            {
+              created_at: new Date().toISOString(),
+              id: crypto.randomUUID(),
+              text: message,
+              isUserMessage: true,
+            },
+            ...latestPage.messages,
+          ];
 
-    function addMessage() {
-        sendMessage({ message });
-    }
+          newPages[0] = latestPage;
+          return {
+            ...old,
+            pages: newPages,
+          };
+        },
+      );
 
-    return (
-        <ChatContext.Provider
-            value={{
-                addMessage,
-                message,
-                handleInputChange,
-                isLoading,
-            }}
-        >
-            {children}
-        </ChatContext.Provider>
-    );
+      setIsLoading(true);
+      return {
+        previousMessages:
+          previousMessages?.pages.flatMap((page) => page.messages) ?? [],
+      };
+    },
+    onError: (_, __, context) => {
+      setMessage(backupMessageRef.current);
+      utils.getFileMessages.setData(
+        { fileId },
+        { messages: context?.previousMessages ?? [] },
+      );
+      toast({
+        title: 'Something went wrong',
+        description: 'Please try again later',
+        variant: 'destructive',
+      });
+    },
+    onSettled: async () => {
+      setIsLoading(false);
+      await utils.getFileMessages.invalidate({ fileId });
+    },
+  });
+
+  function handleInputChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setMessage(e.target.value);
+  }
+
+  function addMessage() {
+    sendMessage({ message });
+  }
+
+  return (
+    <ChatContext.Provider
+      value={{
+        addMessage,
+        message,
+        handleInputChange,
+        isLoading,
+      }}
+    >
+      {children}
+    </ChatContext.Provider>
+  );
+}
+
+export function useChat() {
+  const context = useContext(ChatContext);
+  if (context === null) {
+    throw new Error('useChat must be used within a ChatContextProvider');
+  }
+
+  return context;
 }
