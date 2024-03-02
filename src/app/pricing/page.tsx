@@ -168,7 +168,7 @@ export default async function Pricing() {
                 <div className="p-5">
                   {plan === 'Free' ? (
                     <Link
-                      href={user ? '/dashboard' : '/sign-in'}
+                      href={user ? '/dashboard' : '/api/auth/login'}
                       className={buttonVariants({
                         className: 'w-full',
                         variant: 'secondary',
@@ -181,7 +181,7 @@ export default async function Pricing() {
                     <UpgradeButton />
                   ) : (
                     <Link
-                      href="/sign-in"
+                      href="/api/auth/login"
                       className={buttonVariants({
                         className: 'w-full',
                       })}
