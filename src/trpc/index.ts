@@ -1,10 +1,12 @@
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query';
 import { PLANS } from '@/config/stripe';
 import { db } from '@/db';
+import { pinecone } from '@/lib/pinecone';
 import { getUserSubscriptionPlan, stripe } from '@/lib/stripe';
 import { absoluteUrl } from '@/lib/utils';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { TRPCError } from '@trpc/server';
+import { UTApi } from 'uploadthing/server';
 import { z } from 'zod';
 
 import { privateProcedure, publicProcedure, router } from './trpc';
@@ -73,11 +75,28 @@ export const appRouter = router({
 
       if (!file) throw new TRPCError({ code: 'NOT_FOUND' });
 
+      // remove the messages of the file
+      await db.message.deleteMany({
+        where: {
+          fileId: file.id,
+          userId,
+        },
+      });
+
+      // remove the file
       await db.file.delete({
         where: {
           id: input.id,
         },
       });
+
+      // delete from uploadthing
+      const utapi = new UTApi();
+      await utapi.deleteFiles(file.key);
+
+      // delete files vectors
+      const pinecodeNamespace = pinecone.index('quill').namespace(file.id);
+      await pinecodeNamespace.deleteAll();
 
       return file;
     }),
