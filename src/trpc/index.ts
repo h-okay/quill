@@ -187,7 +187,7 @@ export const appRouter = router({
       },
     });
 
-    return { url: stripeSession.url};
+    return { url: stripeSession.url };
   }),
 });
 
