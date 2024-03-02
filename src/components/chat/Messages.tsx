@@ -2,7 +2,9 @@ import { trpc } from '@/app/_trpc/client';
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query';
 import { useChat } from '@/context/ChatContext';
 import { ExtendedMessage } from '@/types/message';
+import { useIntersection } from '@mantine/hooks';
 import { Loader2, MessageSquare } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import Message from './Message';
@@ -38,9 +40,21 @@ export default function Messages({ fileId }: MessagesProps) {
   };
   const messages = data?.pages.flatMap((page) => page.messages);
   const combinedMessages = [
-    ...(true ? [loadingMessage] : []),
+    ...(isAiThinking ? [loadingMessage] : []),
     ...(messages ?? []),
   ];
+
+  const lastMessageRef = useRef<HTMLDivElement>(null);
+  const { ref, entry } = useIntersection({
+    root: lastMessageRef.current,
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      fetchNextPage();
+    }
+  }, [entry, fetchNextPage]);
 
   return (
     <div className="flex max-h-[calc(100vh-3.5rem-7rem)] flex-1 flex-col-reverse gap-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
@@ -53,6 +67,7 @@ export default function Messages({ fileId }: MessagesProps) {
           if (idx === combinedMessages.length - 1) {
             return (
               <Message
+                ref={ref}
                 key={msg.id}
                 message={msg as ExtendedMessage}
                 isNextMessageSamePerson={isNextMessageSamePerson}
