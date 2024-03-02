@@ -23,8 +23,8 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
   const utils = trpc.useUtils();
 
   function getMessageCount(fileId: string) {
-    const { data } = trpc.getFileMessages.useQuery({ fileId });
-    return data?.messages.length;
+    const { data } = trpc.getMessageCountForFile.useQuery({ fileId });
+    return data?.messageCount;
   }
 
   const { data: files, isLoading } = trpc.getUserFiles.useQuery();
@@ -84,7 +84,7 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
                   </div>
                   <div className="flex items-center gap-2">
                     <MessageSquare className="h-4 w-4" />
-                    {getMessageCount(f.id)}
+                    <p>{getMessageCount(f.id)}</p>
                   </div>
                   <Button
                     size="sm"
