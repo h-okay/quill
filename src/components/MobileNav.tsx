@@ -35,9 +35,9 @@ export default function MobileNav({ isAuth }: { isAuth: boolean }) {
               <>
                 <li>
                   <Link
-                    onClick={() => closeOnCurrent('/api/auth/register')}
+                    onClick={() => closeOnCurrent('/sign-up')}
                     className="flex items-center w-full font-semibold text-green-600"
-                    href="/api/auth/register"
+                    href="/sign-up"
                   >
                     Get started
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -46,9 +46,9 @@ export default function MobileNav({ isAuth }: { isAuth: boolean }) {
                 <li className="my-3 h-px w-full bg-gray-300" />
                 <li>
                   <Link
-                    onClick={() => closeOnCurrent('/api/auth/login')}
+                    onClick={() => closeOnCurrent('/sign-in')}
                     className="flex items-center w-full font-semibold"
-                    href="/api/auth/login"
+                    href="/sign-in"
                   >
                     Sign in
                   </Link>
