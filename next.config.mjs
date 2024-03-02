@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async redirects() {
+  /* async redirects() {
     return [
       {
         source: '/sign-in',
@@ -13,7 +13,7 @@ const nextConfig = {
         permanent: true,
       },
     ];
-  },
+  }, */
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.resolve.alias.canvas = false;
     config.resolve.alias.encoding = false;
