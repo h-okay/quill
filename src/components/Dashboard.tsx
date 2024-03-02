@@ -1,6 +1,7 @@
 'use client';
 
 import { trpc } from '@/app/_trpc/client';
+import { getUserSubscriptionPlan } from '@/lib/stripe';
 import { format } from 'date-fns';
 import { Ghost, Loader2, MessageSquare, Plus, Trash } from 'lucide-react';
 import Link from 'next/link';
@@ -10,7 +11,11 @@ import Skeleton from 'react-loading-skeleton';
 import UploadButton from './UploadButton';
 import { Button } from './ui/button';
 
-export default function Dashboard() {
+type DashboardProps = {
+  subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
+};
+
+export default function Dashboard({ subscriptionPlan }: DashboardProps) {
   const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<
     string | null
   >();
@@ -33,7 +38,7 @@ export default function Dashboard() {
     <main className="mx-auto max-w-7xl md:p-10">
       <div className="mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0">
         <h1 className="mb-3 text-5xl font-bold text-gray-900">My Files</h1>
-        <UploadButton />
+        <UploadButton isSubscribed={subscriptionPlan.isSubscribed} />
       </div>
 
       {/* display all user files */}
