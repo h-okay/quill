@@ -4,7 +4,7 @@ import { trpc } from '@/app/_trpc/client';
 import { useToast } from '@/components/ui/use-toast';
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query';
 import { useMutation } from '@tanstack/react-query';
-import { Chat } from 'openai/resources/index.mjs';
+import { Church } from 'lucide-react';
 import { ReactNode, createContext, useContext, useRef, useState } from 'react';
 
 type StreamResponse = {
@@ -95,17 +95,87 @@ export function ChatContextProvider({
           previousMessages?.pages.flatMap((page) => page.messages) ?? [],
       };
     },
+    onSuccess: async (stream) => {
+      setIsLoading(false);
+
+      if (!stream) {
+        return toast({
+          title: 'There was a problem sending this message',
+          description: 'Please refresh this page and try again',
+          variant: 'destructive',
+        });
+      }
+
+      const reader = stream.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+
+      // building up the response
+      let accumulatedResponse = '';
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        const chunk = decoder.decode(value);
+        accumulatedResponse += chunk;
+
+        utils.getFileMessages.setInfiniteData(
+          {
+            fileId,
+            limit: INFINITE_QUERY_LIMIT,
+          },
+          (old) => {
+            if (!old) return { pages: [], pageParams: [] };
+
+            let isAiResponseCreated = old.pages.some((page) =>
+              page.messages.some((msg) => msg.id === 'ai-response'),
+            );
+
+            let updatedPages = old.pages.map((page) => {
+              if (page === old.pages[0]) {
+                let updatedMessages;
+                if (!isAiResponseCreated) {
+                  updatedMessages = [
+                    {
+                      created_at: new Date().toISOString(),
+                      id: 'ai-response',
+                      text: accumulatedResponse,
+                      isUserMessage: false,
+                    },
+                    ...page.messages,
+                  ];
+                } else {
+                  updatedMessages = page.messages.map((msg) => {
+                    if (msg.id === 'ai-response') {
+                      return {
+                        ...msg,
+                        text: accumulatedResponse,
+                      };
+                    }
+
+                    return msg;
+                  });
+                }
+
+                return {
+                  ...page,
+                  messages: updatedMessages,
+                };
+              }
+
+              return page;
+            });
+
+            return { ...old, pages: updatedPages };
+          },
+        );
+      }
+    },
     onError: (_, __, context) => {
       setMessage(backupMessageRef.current);
       utils.getFileMessages.setData(
         { fileId },
         { messages: context?.previousMessages ?? [] },
       );
-      toast({
-        title: 'Something went wrong',
-        description: 'Please try again later',
-        variant: 'destructive',
-      });
     },
     onSettled: async () => {
       setIsLoading(false);
