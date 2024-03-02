@@ -12,7 +12,7 @@ import { privateProcedure, publicProcedure, router } from './trpc';
 export const appRouter = router({
   authCallback: publicProcedure.query(async () => {
     const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    const user = getUser();
 
     // check if user exists in auth provider
     if (!user || !user.id || !user.email) {

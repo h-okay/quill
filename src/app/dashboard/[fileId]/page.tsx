@@ -15,7 +15,7 @@ export default async function FileId({ params }: FileIdProps) {
   const { fileId } = params;
 
   const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = getUser();
   if (!user || !user.id) redirect(`/auth-callback?origin=dashboard/${fileId}`);
 
   // make db call to get all the details

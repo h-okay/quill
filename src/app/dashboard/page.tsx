@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 
 export default async function DashboardPage() {
   const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = getUser();
 
   // user exists on auth provider
   if (!user || !user.id) redirect('/auth-callback?origin=dashboard');

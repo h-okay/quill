@@ -10,7 +10,7 @@ import { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
   const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = getUser();
   if (!user) return new Response('User not found', { status: 404 });
 
   const { id: userId } = user;

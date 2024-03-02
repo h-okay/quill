@@ -13,9 +13,9 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { ArrowRight, Check, HelpCircle, Minus } from 'lucide-react';
 import Link from 'next/link';
 
-export default async function Pricing() {
+export default function Pricing() {
   const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = getUser();
 
   const pricingItems = [
     {
