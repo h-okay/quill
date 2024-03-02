@@ -22,7 +22,7 @@ export default function AuthCallback() {
     }
     // user needs to login
     if (response.isError) {
-      router.push('/sign-in');
+      router.push('/api/auth/login');
     }
   }, [response.isSuccess, response.isError, origin, router]);
 
