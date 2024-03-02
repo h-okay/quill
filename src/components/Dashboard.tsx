@@ -7,7 +7,6 @@ import { Ghost, Loader2, MessageSquare, Plus, Trash } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { measureMemory } from 'vm';
 
 import UploadButton from './UploadButton';
 import { Button } from './ui/button';
@@ -84,7 +83,7 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
                   </div>
                   <div className="flex items-center gap-2">
                     <MessageSquare className="h-4 w-4" />
-                    <p>{getMessageCount(f.id)}</p>
+                    <p>{getMessageCount(f.id) || 0}</p>
                   </div>
                   <Button
                     size="sm"
