@@ -59,7 +59,7 @@ export default function BillingForm({ subscriptionPlan }: BillingFormProps) {
               plan.
             </CardDescription>
           </CardHeader>
-          <CardFooter className="flex flex-col items-start space-y-2 md:flex-row md:justify-between md:space-x-0">
+          <CardFooter className="flex flex-col items-end space-y-2 md:flex-row md:justify-between md:space-x-0">
             <Button type="submit">
               {isLoading ? (
                 <Loader2 className="mr-4 h-4 w-4 animate-spin" />
