@@ -17,6 +17,9 @@ dependencies:
   '@langchain/pinecone':
     specifier: ^0.0.3
     version: 0.0.3
+  '@mantine/hooks':
+    specifier: ^7.6.1
+    version: 7.6.1(react@18.2.0)
   '@pinecone-database/pinecone':
     specifier: ^2.0.1
     version: 2.0.1
@@ -1853,6 +1856,14 @@ packages:
       '@pinecone-database/pinecone': 2.0.1
       flat: 5.0.2
       uuid: 9.0.1
+    dev: false
+
+  /@mantine/hooks@7.6.1(react@18.2.0):
+    resolution: {integrity: sha512-zsOGzFRcQZuER2rzAjfrAqp98W7WCFA43nF1QZUKV7AHTq8q1mtr3DOhFfO3/CA+t1lai68gp1guVcIhP4lrwQ==}
+    peerDependencies:
+      react: ^18.2.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@mapbox/node-pre-gyp@1.0.11:
