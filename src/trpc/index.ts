@@ -98,6 +98,28 @@ export const appRouter = router({
       if (!file) return { status: 'PENDING' as const };
       return { status: file.uploadStatus };
     }),
+  getFileMessageCount: privateProcedure
+    .input(z.object({ fileId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const { userId } = ctx;
+      const { fileId } = input;
+
+      const file = await db.file.findFirst({
+        where: {
+          id: fileId,
+          userId,
+        },
+      });
+
+      if (!file) throw new TRPCError({ code: 'NOT_FOUND' });
+
+      const fileMessages = await db.message.findMany({
+        where: {
+          fileId,
+        },
+      });
+      return fileMessages.length;
+    }),
   getFileMessages: privateProcedure
     .input(
       z.object({

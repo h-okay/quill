@@ -35,13 +35,8 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
     },
   });
 
-  async function getMessageCount(fileId: string) {
-    const fileMessages = await db.message.findMany({
-      where: {
-        fileId,
-      },
-    });
-    return fileMessages.length;
+  function getMessageCount(fileId: string) {
+    return trpc.getFileMessageCount.useQuery({ fileId }).data;
   }
 
   return (
