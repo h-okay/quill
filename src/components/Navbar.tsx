@@ -7,6 +7,7 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 import MaxWidthWrapper from './MaxWidthWrapper';
+import MobileNav from './MobileNav';
 import UserAccountNav from './UserAccountNav';
 import { buttonVariants } from './ui/button';
 
@@ -21,7 +22,9 @@ export default async function Navbar() {
           <Link href="/" className="z-40 flex font-semibold">
             <span>quill.</span>
           </Link>
-          {/* TODO: add mobile navbar */}
+
+          <MobileNav isAuth={!!user} />
+
           <div className="hidden items-center space-x-4 sm:flex">
             {!user ? (
               <>
