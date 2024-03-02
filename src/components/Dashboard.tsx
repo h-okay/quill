@@ -1,6 +1,7 @@
 'use client';
 
 import { trpc } from '@/app/_trpc/client';
+import { db } from '@/db';
 import { getUserSubscriptionPlan } from '@/lib/stripe';
 import { format } from 'date-fns';
 import { Ghost, Loader2, MessageSquare, Plus, Trash } from 'lucide-react';
@@ -21,11 +22,6 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
   >();
   const utils = trpc.useUtils();
 
-  function getMessageCount(fileId: string) {
-    const { data } = trpc.getMessageCountForFile.useQuery({ fileId });
-    return data?.messageCount;
-  }
-
   const { data: files, isLoading } = trpc.getUserFiles.useQuery();
   const { mutate: deleteFile } = trpc.deleteFile.useMutation({
     onSuccess: () => {
@@ -38,6 +34,15 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
       setCurrentlyDeletingFile(null);
     },
   });
+
+  async function getMessageCount(fileId: string) {
+    const fileMessages = await db.message.findMany({
+      where: {
+        fileId,
+      },
+    });
+    return fileMessages.length;
+  }
 
   return (
     <main className="mx-auto max-w-7xl md:p-10">
