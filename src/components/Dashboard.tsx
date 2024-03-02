@@ -7,6 +7,7 @@ import { Ghost, Loader2, MessageSquare, Plus, Trash } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { measureMemory } from 'vm';
 
 import UploadButton from './UploadButton';
 import { Button } from './ui/button';
@@ -20,6 +21,11 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
     string | null
   >();
   const utils = trpc.useUtils();
+
+  function getMessageCount(fileId: string) {
+    const { data } = trpc.getFileMessages.useQuery({ fileId });
+    return data?.messages.length;
+  }
 
   const { data: files, isLoading } = trpc.getUserFiles.useQuery();
   const { mutate: deleteFile } = trpc.deleteFile.useMutation({
@@ -78,7 +84,7 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
                   </div>
                   <div className="flex items-center gap-2">
                     <MessageSquare className="h-4 w-4" />
-                    mocked
+                    {getMessageCount(f.id)}
                   </div>
                   <Button
                     size="sm"
