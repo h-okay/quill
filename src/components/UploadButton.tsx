@@ -87,10 +87,7 @@ function UploadDropzone({ isSubscribed }: { isSubscribed: boolean }) {
           className="m-4 h-64 rounded-lg border border-dashed border-gray-300"
         >
           <div className="flex h-full w-full items-center justify-center">
-            <label
-              htmlFor="dropzone-file"
-              className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100"
-            >
+            <div className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100">
               <div className="flex flex-col items-center justify-center pb-6 pt-5">
                 <Cloud className="mb-2 h-6 w-6 text-zinc-500" />
                 <p className="mb-2 text-sm text-zinc-700">
@@ -140,7 +137,7 @@ function UploadDropzone({ isSubscribed }: { isSubscribed: boolean }) {
                 id="dropzone-file"
                 className="hidden"
               />
-            </label>
+            </div>
           </div>
         </div>
       )}
