@@ -21,7 +21,6 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
     string | null
   >();
   const utils = trpc.useUtils();
-
   const { data: files, isLoading } = trpc.getUserFiles.useQuery();
   const { mutate: deleteFile } = trpc.deleteFile.useMutation({
     onSuccess: () => {
@@ -34,10 +33,6 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
       setCurrentlyDeletingFile(null);
     },
   });
-
-  function getMessageCount(fileId: string) {
-    return trpc.getFileMessageCount.useQuery({ fileId }).data;
-  }
 
   return (
     <main className="mx-auto max-w-7xl md:p-10">
@@ -83,7 +78,12 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
                   </div>
                   <div className="flex items-center gap-2">
                     <MessageSquare className="h-4 w-4" />
-                    <p>{getMessageCount(f.id) || 0}</p>
+                    <p>
+                      {
+                        trpc.getFileMessageCount.useQuery({ fileId: f.id }).data
+                          ?.count
+                      }
+                    </p>
                   </div>
                   <Button
                     size="sm"

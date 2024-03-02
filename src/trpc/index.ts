@@ -116,9 +116,11 @@ export const appRouter = router({
       const fileMessages = await db.message.findMany({
         where: {
           fileId,
+          userId,
         },
       });
-      return fileMessages.length;
+
+      return { count: fileMessages.length };
     }),
   getFileMessages: privateProcedure
     .input(
