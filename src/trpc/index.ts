@@ -124,6 +124,7 @@ export const appRouter = router({
           id: true,
         },
       });
+      console.log(messageCountForFile);
       return { messageCount: messageCountForFile._count.id };
     }),
   getFileMessages: privateProcedure
