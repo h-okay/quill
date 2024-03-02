@@ -34,6 +34,14 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
     },
   });
 
+  function getMessageCount(fileId: string) {
+    const { data, isLoading } = trpc.getFileMessageCount.useQuery({ fileId });
+    if (isLoading) {
+      return <Loader2 className="h-2 w-2 text-gray-300 animate-spin" />;
+    }
+    return data?.count;
+  }
+
   return (
     <main className="mx-auto max-w-7xl md:p-10">
       <div className="mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0">
@@ -78,12 +86,7 @@ export default function Dashboard({ subscriptionPlan }: DashboardProps) {
                   </div>
                   <div className="flex items-center gap-2">
                     <MessageSquare className="h-4 w-4" />
-                    <p>
-                      {
-                        trpc.getFileMessageCount.useQuery({ fileId: f.id }).data
-                          ?.count
-                      }
-                    </p>
+                    {getMessageCount(f.id)}
                   </div>
                   <Button
                     size="sm"
