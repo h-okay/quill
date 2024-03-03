@@ -13,6 +13,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Icons } from './Icons';
+import ThemeSwitch from './ThemeSwitch';
 import { Button } from './ui/button';
 
 type UserAccountNavProps = {
@@ -50,17 +51,17 @@ export default async function UserAccountNav({
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-
       <DropdownMenuContent className="bg-white" align="end">
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-0.5 leading-none">
             {name && <p className="font-medium text-sm text-black">{name}</p>}
             {email && (
-              <p className="w-[200px] truncate text-xs text-zinc-700">
+              <p className="w-[150px] truncate text-xs text-zinc-700">
                 {email}
               </p>
             )}
           </div>
+          <ThemeSwitch className="flex-1" />
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="cursor-pointer">
