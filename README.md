@@ -4,7 +4,7 @@
 
 ### Introduction
 
-Quill project allows users to upload PDF files and engage in conversations with a Language Model (LLM) customized with the content of the uploaded files.
+Quill allows yout to engage in conversations with a Language Model (LLM) customized with the content of the uploaded PDF files.
 
 ### Getting Started
 
