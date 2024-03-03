@@ -8,7 +8,7 @@ import { useUploadThing } from '@/lib/uploadthing';
 import { Cloud, File, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import Dropzone from 'react-dropzone';
+import Dropzone, { useDropzone } from 'react-dropzone';
 
 import { useToast } from './ui/use-toast';
 
@@ -46,6 +46,7 @@ function UploadDropzone({ isSubscribed }: { isSubscribed: boolean }) {
 
   return (
     <Dropzone
+      noClick={true}
       multiple={false}
       onDrop={async (acceptedFile) => {
         setIsUploading(true);
@@ -81,9 +82,10 @@ function UploadDropzone({ isSubscribed }: { isSubscribed: boolean }) {
         startPolling({ key });
       }}
     >
-      {({ getRootProps, getInputProps, acceptedFiles }) => (
+      {({ getRootProps, getInputProps, acceptedFiles, open }) => (
         <div
           {...getRootProps()}
+          onClick={open}
           className="m-4 h-64 rounded-lg border border-dashed border-gray-300"
         >
           <div className="flex h-full w-full items-center justify-center">
