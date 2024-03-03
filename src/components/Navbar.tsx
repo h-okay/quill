@@ -1,3 +1,4 @@
+import { getUserSubscriptionPlan } from '@/lib/stripe';
 import {
   LoginLink,
   RegisterLink,
@@ -11,9 +12,10 @@ import MobileNav from './MobileNav';
 import UserAccountNav from './UserAccountNav';
 import { buttonVariants } from './ui/button';
 
-export default function Navbar() {
+export default async function Navbar() {
   const { getUser } = getKindeServerSession();
   const user = getUser();
+  const subscriptionPlan = await getUserSubscriptionPlan();
 
   return (
     <nav className="sticky inset-x-0 top-0 z-30 h-14 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
@@ -23,7 +25,7 @@ export default function Navbar() {
             <span>quill.</span>
           </Link>
 
-          <MobileNav isAuth={!!user} />
+          <MobileNav isAuth={!!user} isPro={subscriptionPlan.isSubscribed} />
 
           <div className="hidden items-center space-x-4 sm:flex">
             {!user ? (
