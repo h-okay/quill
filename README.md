@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Quill
 
-## Getting Started
+![Quill](/public/quill.png)
 
-First, run the development server:
+### Introduction
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Quill project allows users to upload PDF files and engage in conversations with a Language Model (LLM) customized with the content of the uploaded files.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Check out live at [quill.hakanokay.dev](https://quill.hakanokay.dev)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+You can test **Pro Plan** features without making any real payments during checkout:
 
-## Learn More
+- **Email:** Use the email you used signing up
+- **Card Number:** 4242 4242 4242 4242.
+- **Expiraton Date:** Use a valid future date, such as 12/34.
+- **CVC:** Use any three-digit CVC (four digits for American Express cards).
+- Use any value you like for other form fields.
 
-To learn more about Next.js, take a look at the following resources:
+### Technologies Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [React](https://react.dev/) - The library for web and native user interfaces
+- [Typescript](https://www.typescriptlang.org/) - TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale
+- [Next.js](https://nextjs.org/) - The React Framework for the Web
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework packed with classes
+- [tRPC](https://trpc.io/) - End-to-end typesafe APIs
+- [Planetscale](https://planetscale.com/) - The ultimate MySQL database platform
+- [Pinecone](https://www.pinecone.io/) - Pinecone serverless lets you deliver remarkable GenAI applications faster, at up to 50x lower cost
+- [Uploadthing](https://uploadthing.com/) - File Uploads For Next.js Developers
+- [Langchain](https://www.langchain.com/) - Applications that can reason. Powered by LangChain
+- [Kinde](https://kinde.com/) - Auth for modern applications
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Installation
 
-## Deploy on Vercel
+To install and run this project locally, follow these steps:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Requirements**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Node.js 18+
+- Planetscale account + a MySQL database created on the platform
+- Pinecone account + an index created on the platform
+- Uploadthing account
+- Kinde account
+
+**After setting up the platforms, you can do the following:**
+
+1. **Clone the repository and install the depencencies**
+
+   ```bash
+   git clone https://github.com/h-okay/quill.git
+   cd quill
+   npm/yarn/bun/pnpm install
+   ```
+
+2. **Setup the environment**
+
+   Create an `.env` file and copy the contents of the `.env.template`, populate the fields by using the credentials you are given by the platform in the requirements.
+
+3. **Run the application locally**
+
+   After populating the `.env` file run the development server, open your web browser and navigate to http://localhost:3000
+
+   ```bash
+   npm run dev
+   ```
+
+### Feedback
+
+Any feedback or suggestions are welcome. Please feel free to reach out to me via [email](mailto:hokay.ca@gmail.com).
+
+### License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
