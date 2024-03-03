@@ -168,15 +168,18 @@ export default function Pricing() {
                     </li>
                   ))}
                 </ul>
-                <div className="border-t border-gray-200" />
+                <div className="border-t border-gray-200 dark:border-[#2d2d2d]" />
                 <div className="p-5">
                   {plan === 'Free' ? (
                     <Link
                       href={user ? '/dashboard' : '/sign-in'}
-                      className={buttonVariants({
-                        className: 'w-full',
-                        variant: 'secondary',
-                      })}
+                      className={cn(
+                        buttonVariants({
+                          className: 'w-full',
+                          variant: 'secondary',
+                        }),
+                        'dark:text-white',
+                      )}
                     >
                       {user ? 'Upgrade now' : 'Sign up'}
                       <ArrowRight className="h-5 w-5 ml-1.5" />
@@ -186,9 +189,12 @@ export default function Pricing() {
                   ) : (
                     <Link
                       href="/sign-in"
-                      className={buttonVariants({
-                        className: 'w-full',
-                      })}
+                      className={cn(
+                        buttonVariants({
+                          className: 'w-full',
+                        }),
+                        'dark:text-white',
+                      )}
                     >
                       {user ? 'Upgrade now' : 'Sign up'}
                       <ArrowRight className="h-5 w-5 ml-1.5" />

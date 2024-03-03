@@ -1,4 +1,5 @@
 import { getUserSubscriptionPlan } from '@/lib/stripe';
+import { cn } from '@/lib/utils';
 import {
   LoginLink,
   RegisterLink,
@@ -46,9 +47,12 @@ export default async function Navbar() {
                   Sign in
                 </LoginLink>
                 <RegisterLink
-                  className={buttonVariants({
-                    size: 'sm',
-                  })}
+                  className={cn(
+                    buttonVariants({
+                      size: 'sm',
+                    }),
+                    'dark:text-white',
+                  )}
                 >
                   Get started <ArrowRight className="ml-1.5 h-5 w-5" />
                 </RegisterLink>
