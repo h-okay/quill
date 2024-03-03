@@ -24,9 +24,7 @@ export default async function Navbar() {
           <Link href="/" className="z-40 flex font-semibold">
             <span>quill.</span>
           </Link>
-
           <MobileNav isAuth={!!user} isPro={subscriptionPlan.isSubscribed} />
-
           <div className="hidden items-center space-x-4 sm:flex">
             {!user ? (
               <>
