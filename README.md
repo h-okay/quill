@@ -4,7 +4,7 @@
 
 ### Introduction
 
-Quill allows yout to engage in conversations with a Language Model (LLM) customized with the content of the uploaded PDF files.
+Quill allows you to engage in conversations with a Language Model (LLM) customized with the content of the uploaded PDF files.
 
 ### Getting Started
 
@@ -21,15 +21,15 @@ You can test **Pro Plan** features without making any real payments during check
 ### Technologies Used
 
 - [React](https://react.dev/) - The library for web and native user interfaces
-- [Typescript](https://www.typescriptlang.org/) - TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale
+- [Typescript](https://www.typescriptlang.org/) - TypeScript is a strongly typed programming language that builds on JavaScript
 - [Next.js](https://nextjs.org/) - The React Framework for the Web
-- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework packed with classes
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
 - [tRPC](https://trpc.io/) - End-to-end typesafe APIs
-- [Planetscale](https://planetscale.com/) - The ultimate MySQL database platform
-- [Pinecone](https://www.pinecone.io/) - Pinecone serverless lets you deliver remarkable GenAI applications faster, at up to 50x lower cost
-- [Uploadthing](https://uploadthing.com/) - File Uploads For Next.js Developers
-- [Langchain](https://www.langchain.com/) - Applications that can reason. Powered by LangChain
-- [Kinde](https://kinde.com/) - Auth for modern applications
+- [Planetscale](https://planetscale.com/) - MySQL database
+- [Pinecone](https://www.pinecone.io/) - Vector DB
+- [Uploadthing](https://uploadthing.com/) - File Uploads
+- [Langchain](https://www.langchain.com/) - Connect language models
+- [Kinde](https://kinde.com/) - Auth
 
 ### Installation
 
