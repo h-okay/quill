@@ -1,10 +1,11 @@
 'use client';
 
 import { trpc } from '@/app/_trpc/client';
+import ThemeContextProvider from '@/context/ThemeContext';
 import { absoluteUrl } from '@/lib/utils';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
-import { PropsWithChildren, ReactNode, useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 
 export default function Providers({ children }: PropsWithChildren) {
   const [queryClient] = useState(() => new QueryClient());
@@ -19,7 +20,9 @@ export default function Providers({ children }: PropsWithChildren) {
   );
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeContextProvider>{children}</ThemeContextProvider>
+      </QueryClientProvider>
     </trpc.Provider>
   );
 }
