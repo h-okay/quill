@@ -84,10 +84,10 @@ export default function Messages({ fileId }: MessagesProps) {
         })
       ) : isLoading ? (
         <div className="w-full flex flex-col gap-2">
-          <Skeleton className="h-16" />
-          <Skeleton className="h-16" />
-          <Skeleton className="h-16" />
-          <Skeleton className="h-16" />
+          <Skeleton className="h-16 dark:bg-[#0a0a0a]" />
+          <Skeleton className="h-16 dark:bg-[#0a0a0a]" />
+          <Skeleton className="h-16 dark:bg-[#0a0a0a]" />
+          <Skeleton className="h-16 dark:bg-[#0a0a0a]" />
         </div>
       ) : (
         <div className="flex-1 flex flex-col items-center justify-center gap-2">

@@ -51,12 +51,16 @@ export default async function UserAccountNav({
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white" align="end">
+      <DropdownMenuContent className="bg-white dark:bg-[#0a0a0a]" align="end">
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-0.5 leading-none">
-            {name && <p className="font-medium text-sm text-black">{name}</p>}
+            {name && (
+              <p className="font-medium text-sm text-black dark:text-white">
+                {name}
+              </p>
+            )}
             {email && (
-              <p className="w-[150px] truncate text-xs text-zinc-700">
+              <p className="w-[150px] truncate text-xs text-zinc-700 dark:text-white/50">
                 {email}
               </p>
             )}

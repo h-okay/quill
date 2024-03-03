@@ -72,7 +72,7 @@ export default function PdfRenderer({ url }: PdfRendererProps) {
   }
 
   return (
-    <div className="flex w-full flex-col items-center rounded-md bg-white shadow">
+    <div className="flex w-full flex-col items-center rounded-md bg-white shadow dark:bg-[#0a0a0a]/50 dark:border dark:border-[#2d2d2d]">
       <div className="flex h-14 w-full items-center justify-between border-b border-zinc-200 px-2">
         <div className="flex items-center gap-1.5">
           <Button
@@ -100,7 +100,7 @@ export default function PdfRenderer({ url }: PdfRendererProps) {
                 }
               }}
             />
-            <p className="space-x-1 text-sm text-zinc-700">
+            <p className="space-x-1 text-sm text-zinc-700 dark:text-white">
               <span>/</span>
               <span>{numPages ?? '...'}</span>
             </p>

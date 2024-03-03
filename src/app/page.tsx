@@ -1,5 +1,6 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,8 +9,8 @@ export default function Home() {
   return (
     <>
       <MaxWidthWrapper className="mb-12 mt-28 flex flex-col items-center justify-center text-center sm:mt-40">
-        <div className="mx-auto mb-4 flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-gray-200 bg-white px-7 py-2 shadow-md backdrop-blur transition-all hover:border-gray-300 hover:bg-white/50">
-          <p className="text-sm font-semibold text-gray-700">
+        <div className="mx-auto mb-4 flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-gray-200 bg-white px-7 py-2 shadow-md backdrop-blur transition-all hover:border-gray-300 hover:bg-white/50 dark:hover:border-white dark:bg-[#0a0a0a] dark:border-[#2d2d2d]">
+          <p className="text-sm font-semibold text-gray-700 dark:text-white">
             Quill is now public!
           </p>
         </div>
@@ -17,15 +18,18 @@ export default function Home() {
           Chat with your <span className="text-blue-600">documents</span> in
           seconds.
         </h1>
-        <p className="mt-5 max-w-prose text-zinc-700 sm:text-xl">
+        <p className="mt-5 max-w-prose text-zinc-700 sm:text-xl dark:text-white/50">
           Quill allows you to have conversations with any PDF document. Simply
           upload your file and start asking questions right away.
         </p>
         <Link
-          className={buttonVariants({
-            size: 'lg',
-            className: 'mt-5',
-          })}
+          className={cn(
+            buttonVariants({
+              size: 'lg',
+              className: 'mt-5',
+            }),
+            'dark:text-white',
+          )}
           href="/dashboard"
           target="_blank"
         >
@@ -83,10 +87,10 @@ export default function Home() {
       <div className="mx-auto mb-32 mt-32 max-w-5xl sm:mt-56">
         <div className="mb-12 px-6 lg:px-8 ">
           <div className="mx-auto max-w-2xl sm:text-center">
-            <h2 className="mt-2 text-4xl font-bold text-gray-900 sm:text-5xl">
+            <h2 className="mt-2 text-4xl font-bold text-gray-900 sm:text-5xl dark:text-white">
               Start chatting in minutes
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-gray-600 dark:text-white/50">
               Chatting to your PDF files has never been easier than with Quill.
             </p>
           </div>
@@ -95,12 +99,12 @@ export default function Home() {
         {/* steps */}
         <ol className="my-8 space-y-4 pt-8 md:flex md:space-x-12 md:space-y-0">
           <li className="md:flex-1">
-            <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
+            <div className="flex flex-col space-y-2 border-l-4 dark:border-[#2d2d2d] border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
               <span className="text-sm font-medium text-blue-600">Step 1</span>
               <span className="text-xl font-semibold">
                 Sign up for an account
               </span>
-              <span className="mt-2 text-zinc-700">
+              <span className="mt-2 text-zinc-700 dark:text-white dark:text-white/50">
                 Either start out with a free plan or choose our{' '}
                 <Link href="/pricing" className="font-semibold text-blue-700">
                   pro plan
@@ -110,24 +114,24 @@ export default function Home() {
             </div>
           </li>
           <li className="md:flex-1">
-            <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
+            <div className="flex flex-col space-y-2 border-l-4 dark:border-[#2d2d2d] border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
               <span className="text-sm font-medium text-blue-600">Step 2</span>
               <span className="text-xl font-semibold">
                 Upload your PDF file
               </span>
-              <span className="mt-2 text-zinc-700">
+              <span className="mt-2 text-zinc-700 dark:text-white dark:text-white/50">
                 We&apos;ll process your file and make it ready for you to chat
                 with.
               </span>
             </div>
           </li>
           <li className="md:flex-1">
-            <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
+            <div className="flex flex-col space-y-2 border-l-4 dark:border-[#2d2d2d] border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
               <span className="text-sm font-medium text-blue-600">Step 3</span>
               <span className="text-xl font-semibold">
                 Start asking questions
               </span>
-              <span className="mt-2 text-zinc-700">
+              <span className="mt-2 text-zinc-700 dark:text-white dark:text-white/50">
                 It&apos;s that simple. Try out Quill today - it really takes
                 less than a minute.
               </span>

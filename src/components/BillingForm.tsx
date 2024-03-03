@@ -51,7 +51,7 @@ export default function BillingForm({ subscriptionPlan }: BillingFormProps) {
           createStripeSession();
         }}
       >
-        <Card>
+        <Card className="dark:border dark:border-[#252525] dark:bg-[#0a0a0a]">
           <CardHeader>
             <CardTitle>Subscription Plan</CardTitle>
             <CardDescription>
@@ -60,7 +60,7 @@ export default function BillingForm({ subscriptionPlan }: BillingFormProps) {
             </CardDescription>
           </CardHeader>
           <CardFooter className="flex flex-col items-end space-y-2 md:flex-row md:justify-between md:space-x-0">
-            <Button type="submit">
+            <Button type="submit" className='dark:text-white'>
               {isLoading ? (
                 <Loader2 className="mr-4 h-4 w-4 animate-spin" />
               ) : null}

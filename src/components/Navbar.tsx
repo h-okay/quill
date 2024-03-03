@@ -18,9 +18,9 @@ export default async function Navbar() {
   const subscriptionPlan = await getUserSubscriptionPlan();
 
   return (
-    <nav className="sticky inset-x-0 top-0 z-30 h-14 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
+    <nav className="sticky inset-x-0 top-0 z-30 h-14 w-full border-b border-gray-200 dark:border-[#2d2d2d] bg-white/75 backdrop-blur-lg transition-all dark:text-white dark:bg-[#0a0a0a]">
       <MaxWidthWrapper>
-        <div className="flex h-14 items-center justify-between border-b border-zinc-200">
+        <div className="flex h-14 items-center justify-between border-b border-zinc-200 dark:border-[#2d2d2d]">
           <Link href="/" className="z-40 flex font-semibold">
             <span>quill.</span>
           </Link>

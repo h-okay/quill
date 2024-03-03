@@ -76,7 +76,7 @@ export default function Pricing() {
     <MaxWidthWrapper className="mb-8 mt-24 text-center max-w-5xl">
       <div className="mx-auto mb-10 sm:max-w-lg">
         <h1 className="text-6xl font-bold sm:text-7xl">Pricing</h1>
-        <p className="mt-5 text-gray-600 sm:text-lg">
+        <p className="mt-5 text-gray-600 sm:text-lg dark:text-white/70">
           Whether you&apos;re just trying out our service or need more,
           we&apos;ve got you covered.
         </p>
@@ -91,10 +91,14 @@ export default function Pricing() {
             return (
               <div
                 key={plan}
-                className={cn('relative rounded-2xl bg-white shadow-lg', {
-                  'border-2 border-blue-600 shadow-blue-200': plan === 'Pro',
-                  'border border-gray-200': plan !== 'Pro',
-                })}
+                className={cn(
+                  'relative rounded-2xl bg-white shadow-lg dark:border-[#252525] dark:bg-[#0a0a0a] dark:shadow-md',
+                  {
+                    'border-2 border-blue-600 shadow-blue-200 dark:border-blue-600':
+                      plan === 'Pro',
+                    'border border-gray-200': plan !== 'Pro',
+                  },
+                )}
               >
                 {plan === 'Pro' && (
                   <div className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-sm font-medium text-white">
@@ -111,7 +115,7 @@ export default function Pricing() {
                   </p>
                   <p className="text-gray-500">per month</p>
                 </div>
-                <div className="flex h-20 items-center justify-center border-b border-t border-gray-200 bg-gray-50">
+                <div className="flex h-20 items-center justify-center border-b border-t border-gray-200 bg-gray-50 dark:border-[#252525] dark:bg-[#0a0a0a]/70">
                   <div className="flex items-center space-x-1">
                     <p>{quota.toLocaleString()} PDFs/mo included</p>
                     <Tooltip delayDuration={300}>
@@ -137,8 +141,8 @@ export default function Pricing() {
                       {footnote ? (
                         <div className="flex items-center space-x-1">
                           <p
-                            className={cn('text-gray-600', {
-                              'text-gray-400': negative,
+                            className={cn('text-gray-600 dark:text-white', {
+                              'text-gray-400 dark:text-white/50': negative,
                             })}
                           >
                             {text}
@@ -154,8 +158,8 @@ export default function Pricing() {
                         </div>
                       ) : (
                         <p
-                          className={cn('text-gray-600', {
-                            'text-gray-400': negative,
+                          className={cn('text-gray-600 dark:text-white', {
+                            'text-gray-400 dark:text-white/50': negative,
                           })}
                         >
                           {text}

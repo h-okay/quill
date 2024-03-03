@@ -39,7 +39,7 @@ export default async function FileId({ params }: FileIdProps) {
         </div>
 
         {/* right side */}
-        <div className="flex-[0.75] shrink-0 border-t border-gray-200 lg:w-96 lg:border-l lg:border-t-0">
+        <div className="flex-[0.75] shrink-0 border-t border-gray-200 lg:w-96 lg:border-l lg:border-t-0 dark:border-[#252525]">
           <ChatWrapper fileId={fileId} />
         </div>
       </div>

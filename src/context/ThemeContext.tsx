@@ -33,12 +33,16 @@ export default function ThemeContextProvider({
 
     if (localTheme === 'dark') {
       document.documentElement.classList.add('dark');
+      document.body.classList.remove('grainy');
+      document.body.classList.add('bg-black');
       return;
     }
 
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       setTheme('dark');
       document.documentElement.classList.add('dark');
+      document.body.classList.remove('grainy');
+      document.body.classList.add('bg-black');
       return;
     }
   }, []);
@@ -48,11 +52,15 @@ export default function ThemeContextProvider({
       setTheme('dark');
       window.localStorage.setItem('theme', 'dark');
       document.documentElement.classList.add('dark');
+      document.body.classList.remove('grainy');
+      document.body.classList.add('bg-black');
       return;
     }
     setTheme('light');
     window.localStorage.setItem('theme', 'light');
     document.documentElement.classList.remove('dark');
+    document.body.classList.add('grainy');
+    document.body.classList.remove('bg-black');
   }
 
   return (

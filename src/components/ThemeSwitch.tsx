@@ -20,9 +20,9 @@ export default function ThemeSwitch({ className }: { className?: string }) {
       />
       <Label htmlFor="theme-switch">
         {theme === 'dark' ? (
-          <Icons.sun className="h-5 w-5" />
-        ) : (
           <Icons.moon className="h-5 w-5" />
+        ) : (
+          <Icons.sun className="h-5 w-5" />
         )}
       </Label>
     </div>
