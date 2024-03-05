@@ -10,7 +10,8 @@ export function absoluteUrl(path: string) {
   // we are on client-side
   if (typeof window !== 'undefined') return path;
   // we are on the server
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}${path}`;
+  if (process.env.PRODUCTION_URL)
+    return `https://${process.env.PRODUCTION_URL}${path}`;
   // we are on local
   return `http://localhost:${process.env.PORT ?? 3000}${path}`;
 }

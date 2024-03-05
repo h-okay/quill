@@ -7,7 +7,13 @@ import { Icons } from './Icons';
 import { Label } from './ui/label';
 import { Switch } from './ui/switch';
 
-export default function ThemeSwitch({ className }: { className?: string }) {
+export default function ThemeSwitch({
+  className,
+  logoOnly,
+}: {
+  className?: string;
+  logoOnly?: boolean;
+}) {
   const { theme, toggleTheme } = useTheme();
 
   return (
@@ -17,6 +23,7 @@ export default function ThemeSwitch({ className }: { className?: string }) {
         onClick={toggleTheme}
         checked={theme === 'dark'}
         onCheckedChange={toggleTheme}
+        className={cn({ hidden: logoOnly })}
       />
       <Label htmlFor="theme-switch">
         {theme === 'dark' ? (

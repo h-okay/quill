@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import ThemeSwitch from './ThemeSwitch';
+
 type MobileNavProps = {
   isAuth: boolean;
   isPro: boolean;
@@ -27,14 +29,15 @@ export default function MobileNav({ isAuth, isPro }: MobileNavProps) {
   };
 
   return (
-    <div className="sm:hidden">
+    <div className="sm:hidden flex gap-2">
+      <ThemeSwitch logoOnly className="z-10" />
       <Menu
         onClick={toggleOpen}
         className="relative z-50 h-8 w-h-8 text-zinc-700"
       />
       {isOpen ? (
         <div className="fixed animate-in slide-in-from-top-5 fade-in-20 inset-0 z-0 w-full">
-          <ul className="absolute bg-white border-b border-zinc-200 shadow-xl grid w-full gap-3 px-10 pt-20 pb-8">
+          <ul className="absolute bg-white border-b border-zinc-200 shadow-xl grid w-full gap-3 px-10 pt-20 pb-8 dark:bg-[#0a0a0a] dark:border-[#2d2d2d]">
             {!isAuth ? (
               <>
                 <li>
@@ -47,7 +50,7 @@ export default function MobileNav({ isAuth, isPro }: MobileNavProps) {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </li>
-                <li className="my-3 h-px w-full bg-gray-300" />
+                <li className="my-3 h-px w-full bg-gray-300 dark:bg-[#2d2d2d]" />
                 <li>
                   <Link
                     onClick={() => closeOnCurrent('/sign-in')}
@@ -57,7 +60,7 @@ export default function MobileNav({ isAuth, isPro }: MobileNavProps) {
                     Sign in
                   </Link>
                 </li>
-                <li className="my-3 h-px w-full bg-gray-300" />
+                <li className="my-3 h-px w-full bg-gray-300 dark:bg-[#2d2d2d]" />
                 <li>
                   <Link
                     onClick={() => closeOnCurrent('/pricing')}
@@ -79,7 +82,7 @@ export default function MobileNav({ isAuth, isPro }: MobileNavProps) {
                     Dashboard
                   </Link>
                 </li>
-                <li className="my-3 h-px w-full bg-gray-300" />
+                <li className="my-3 h-px w-full bg-gray-300 dark:bg-[#2d2d2d]" />
                 {isPro ? (
                   <li>
                     <Link
@@ -101,7 +104,7 @@ export default function MobileNav({ isAuth, isPro }: MobileNavProps) {
                     </Link>
                   </li>
                 )}
-                <li className="my-3 h-px w-full bg-gray-300" />
+                <li className="my-3 h-px w-full bg-gray-300 dark:bg-[#2d2d2d]" />
                 <li>
                   <Link
                     className="flex items-center w-full font-semibold"

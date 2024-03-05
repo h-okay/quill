@@ -51,7 +51,10 @@ export default async function UserAccountNav({
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white dark:bg-[#0a0a0a]" align="end">
+      <DropdownMenuContent
+        className="bg-white dark:bg-[#0a0a0a] dark:border-[#2d2d2d]"
+        align="end"
+      >
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-0.5 leading-none">
             {name && (
@@ -67,7 +70,7 @@ export default async function UserAccountNav({
           </div>
           <ThemeSwitch className="flex-1" />
         </div>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="dark:border dark:border-[#2d2d2d]" />
         <DropdownMenuItem asChild className="cursor-pointer">
           <Link href="/dashboard">Dashboard</Link>
         </DropdownMenuItem>
@@ -80,7 +83,7 @@ export default async function UserAccountNav({
             </Link>
           )}
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="dark:border dark:border-[#2d2d2d]" />
         <DropdownMenuItem asChild className="cursor-pointer">
           <LogoutLink>Log out</LogoutLink>
         </DropdownMenuItem>

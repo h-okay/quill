@@ -1,19 +1,16 @@
+import AdaptiveImage from '@/components/AdaptiveImage';
+import ConfettiBadge from '@/components/ConfettiBadge';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Home() {
   return (
     <>
       <MaxWidthWrapper className="mb-12 mt-28 flex flex-col items-center justify-center text-center sm:mt-40">
-        <div className="mx-auto mb-4 flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-gray-200 bg-white px-7 py-2 shadow-md backdrop-blur transition-all hover:border-gray-300 hover:bg-white/50 dark:hover:border-white dark:bg-[#0a0a0a] dark:border-[#2d2d2d]">
-          <p className="text-sm font-semibold text-gray-700 dark:text-white">
-            Quill is now public!
-          </p>
-        </div>
+        <ConfettiBadge text="Quill is now public!" />
         <h1 className="max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl">
           Chat with your <span className="text-blue-600">documents</span> in
           seconds.
@@ -56,13 +53,12 @@ export default function Home() {
             <div className="mx-auto max-w-6xl px-6 lg:px-8">
               <div className="mt-16 flow-root sm:mt-24">
                 <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-                  <Image
-                    src="/dashboard-preview.jpg"
+                  <AdaptiveImage
+                    darkSrc="/chat-preview-dark.png"
+                    lightSrc="/chat-preview.png"
                     width={1364}
                     height={866}
-                    quality={100}
-                    alt="product-preview"
-                    className="rounded-md bg-white p-2 shadow-2xl ring-1 ring-gray-900/10 sm:p-8 md:p-20"
+                    altText="product-preview"
                   />
                 </div>
               </div>
@@ -142,13 +138,12 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="mt-16 flow-root sm:mt-24">
             <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-              <Image
-                src="/file-upload-preview.jpg"
+              <AdaptiveImage
+                darkSrc="/upload-preview-dark.png"
+                lightSrc="/upload-preview.png"
                 width={1419}
                 height={732}
-                quality={100}
-                alt="upload-preview"
-                className="rounded-md bg-white p-2 shadow-2xl ring-1 ring-gray-900/10 sm:p-8 md:p-20"
+                altText="upload-preview"
               />
             </div>
           </div>

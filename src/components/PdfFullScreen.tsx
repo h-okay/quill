@@ -29,7 +29,11 @@ export default function PdfFullScreen({ fileUrl }: PdfFullScreenProps) {
         }
       }}
     >
-      <DialogTrigger onClick={() => setIsOpen(true)} asChild>
+      <DialogTrigger
+        onClick={() => setIsOpen(true)}
+        asChild
+        className="hidden xl:inline"
+      >
         <Button variant="ghost" className="gap-1.5" aria-label="fullscreen">
           <Expand className="h-4 w-4" />
         </Button>

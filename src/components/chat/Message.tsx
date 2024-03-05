@@ -38,7 +38,7 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
         </div>
 
         <div
-          className={cn('flex flex-col space-y-2 text-base max-w-md mx-2', {
+          className={cn('flex flex-col space-y-2 text-base mx-2', {
             'order-1 items-end': message.isUserMessage,
             'order-2 items-start': !message.isUserMessage,
           })}

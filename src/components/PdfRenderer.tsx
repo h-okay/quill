@@ -74,7 +74,7 @@ export default function PdfRenderer({ url }: PdfRendererProps) {
   return (
     <div className="flex w-full flex-col items-center rounded-md bg-white shadow dark:bg-[#0a0a0a]/50 dark:border dark:border-[#2d2d2d]">
       <div className="flex h-14 w-full items-center justify-between border-b border-zinc-200 px-2 dark:dark:border-[#2d2d2d]">
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center md:gap-1.5">
           <Button
             aria-label="previous page"
             variant="ghost"
@@ -150,6 +150,7 @@ export default function PdfRenderer({ url }: PdfRendererProps) {
             aria-label="rotate 90 degrees"
             variant="ghost"
             onClick={() => setRotation((prev) => prev + 90)}
+            className="hidden xl:inline"
           >
             <RotateCw className="h-4 w-4" />
           </Button>
