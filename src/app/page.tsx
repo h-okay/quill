@@ -27,8 +27,7 @@ export default function Home() {
             }),
             'dark:text-white',
           )}
-          href="/dashboard"
-          target="_blank"
+          href="/sign-up"
         >
           Get started <ArrowRight className="ml-2 h-5 w-5" />
         </Link>
