@@ -2,8 +2,6 @@
 
 ![Quill](/public/quill.png)
 
-### Introduction
-
 Quill allows you to engage in conversations with a Language Model (LLM) customized with the content of the uploaded PDF files.
 
 ### Getting Started
